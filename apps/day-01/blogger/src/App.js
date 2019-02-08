@@ -1,28 +1,57 @@
 import React from "react";
 import Header from "./components/Header";
 import PostDetail from "./components/PostDetail";
+import PostForm from './components/PostForm';
+import { getPosts } from './api/BloggerApi';
 
-const posts = [
-   { title: 'post 1', author: 'hari' },
-   { title: 'post 2', author: 'krish' },
-   { title: 'post 3', author: 'shiv' },
-   { title: 'post 4', author: 'bob' }
-];
+class App extends React.Component {
+   constructor() {
+      super();
 
-// arrow function syntax
-const App = () => {
-   const postDetailObjects = posts.map((post) => {
-      return <div key={post.title}>
-         <PostDetail title={post.title} author={post.author} />
-      </div>;
-   })
+      this.state = {
+         posts: []
+      };
 
-   return (
-      <div>
-         <Header />
-         {postDetailObjects}
-      </div>
-   );
-};
+      getPosts()
+         .then((posts) => {
+            console.log('getPosts() response:', posts);
+            this.setState({ posts });
+         })
+         .catch((error) => {
+            console.log('getPosts() error:', error);
+         });
+   }
+
+   handleNewPost = (newPost) => {
+      this.setState({ posts: [newPost, ...this.state.posts] });
+   };
+
+   render() {
+      const postDetailElements = this.state.posts.map((post) => {
+         return <PostDetail
+            key={post.title}
+            post={post}
+         />;
+      })
+
+      return (
+         <div className="container">
+            <Header />
+            <div className="row">
+               {/* <!-- navigation --> */}
+            </div>
+            <div className="row">
+               <div className="col-md-4">
+                  <PostForm onNewPost={this.handleNewPost} />
+               </div>
+               <div className="col-md-8">
+                  {postDetailElements}
+               </div>
+            </div>
+         </div>
+      );
+   }
+
+}
 
 export default App;

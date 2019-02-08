@@ -1,15 +1,15 @@
+function sum(a, b) {
+   return a + b;
+}
 
-const posts = [
-   { title: 'post 1', author: 'hari' },
-   { title: 'post 2', author: 'krish' },
-   { title: 'post 3', author: 'shiv' },
-   { title: 'post 4', author: 'bob' }
-];
+function sumRest(...numbers) {
+   return numbers.reduce((total, n) => {
+      return total + n;
+   }, 0);
+}
 
-const postsStr = posts.map((post) => {
-   return `<li>${post.title} - ${post.author}</li>`;
-})
+console.log(sum(10, 20));
 
+console.log(sumRest(10, 20, 30, 40, 50));
 
-console.log(posts);
-console.log(postsStr);
+console.log(sumRest(2, 4, 7));

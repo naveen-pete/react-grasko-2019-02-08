@@ -22,53 +22,11 @@
          "category": "redux"
       },
       {
-         "title": "ng 6 new features",
-         "body": "post body",
-         "author": "hari",
-         "category": "angular",
-         "id": "98xqrMq"
-      },
-      {
-         "title": "react 16",
-         "body": "new features",
-         "author": "aaa",
-         "category": "react",
-         "id": "KfihGvl"
-      },
-      {
-         "title": "redux new features",
-         "body": "body",
-         "author": "bbb",
-         "category": "redux",
-         "id": "fcw83Ah"
-      },
-      {
-         "title": "np 1",
-         "body": "np1 body",
-         "author": "aaa",
-         "category": "es6",
-         "id": "63gyrlL"
-      },
-      {
-         "title": "p100",
-         "body": "p100 body",
-         "author": "ccc",
-         "category": "react",
-         "id": "hJYqEKW"
-      },
-      {
-         "title": "p200",
-         "body": "p200 body",
-         "author": "ddd",
-         "category": "react",
-         "id": "WNkC7uL"
-      },
-      {
-         "title": "p300",
-         "body": "p300 body",
-         "author": "eee",
-         "category": "angular",
-         "id": "rNtn4CO"
+         "id": "5",
+         "title": "New post!",
+         "body": "demo",
+         "author": "thingone",
+         "category": "react"
       }
    ],
    "categories": [
