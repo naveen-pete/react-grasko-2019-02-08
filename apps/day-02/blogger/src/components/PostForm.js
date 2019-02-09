@@ -1,4 +1,5 @@
 import React from 'react';
+import { addPost } from '../api';
 
 class PostForm extends React.Component {
    categories = [
@@ -34,7 +35,21 @@ class PostForm extends React.Component {
 
    onFormSubmit = (e) => {
       e.preventDefault();
-      this.props.onNewPost(this.state);
+      // this.props.onNewPost(this.state);
+      this.handleNewPost(this.state);
+   };
+
+   handleNewPost = (newPost) => {
+      addPost(newPost)
+         .then(post => {
+            console.log('Add post successful.');
+            console.log('New post:', post);
+            this.props.history.push('/posts');
+         })
+         .catch(error => {
+            console.log('Add post failed!');
+            console.log('Error:', error);
+         });
    };
 
    render() {
