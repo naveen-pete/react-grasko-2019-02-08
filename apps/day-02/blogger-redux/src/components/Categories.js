@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getCategories } from '../api';
+import { connect } from 'react-redux';
+import { getCategories } from '../actions';
 
 const allCategory = {
    code: 'all',
@@ -7,22 +8,12 @@ const allCategory = {
 }
 
 class Categories extends Component {
-   state = { categories: [] };
-
    componentDidMount() {
-      getCategories()
-         .then(categories => {
-            this.setState({ categories: [allCategory, ...categories] });
-            console.log('Get categories successful!');
-         })
-         .catch((error) => {
-            console.log('Get categories failed.');
-            console.log('Error:', error);
-         });
+      this.props.getCategories();
    }
 
    renderCategories() {
-      return this.state.categories.map(category => {
+      return this.props.categories.map(category => {
          return <li onClick={() => { this.props.onSelect(category) }} key={category.code} className="list-group-item list-group-item-action">
             {category.name}
          </li>
@@ -38,4 +29,10 @@ class Categories extends Component {
    }
 }
 
-export default Categories;
+const mapStateToProps = (state) => {
+   return {
+      categories: state.categories
+   };
+};
+
+export default connect(mapStateToProps, { getCategories: getCategories })(Categories);

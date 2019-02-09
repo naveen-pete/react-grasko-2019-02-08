@@ -1,29 +1,22 @@
 import React from "react";
+import { connect } from 'react-redux';
 
 import PostDetail from "./PostDetail";
 import Categories from './Categories';
-import { getPosts, addPost } from '../api';
+import { getPosts } from '../actions';
 
 class Posts extends React.Component {
    constructor() {
       super();
 
       this.state = {
-         posts: [],
+         // posts: [],
          category: { code: 'all', name: 'All' }
       };
    }
 
    componentDidMount() {
-      getPosts()
-         .then((posts) => {
-            console.log('Get posts successful!');
-            this.setState({ posts });
-         })
-         .catch((error) => {
-            console.log('Get posts failed!');
-            console.log('Error:', error);
-         });
+      this.props.getPosts();
    }
 
    handleCategorySelect = (category) => {
@@ -31,10 +24,12 @@ class Posts extends React.Component {
    };
 
    renderPostDetailElements() {
-      let filteredPosts = this.state.posts;
+      console.log(this.props);
+      // let filteredPosts = this.state.posts;
+      let filteredPosts = this.props.posts;
 
       if (this.state.category.code !== 'all') {
-         filteredPosts = this.state.posts.filter((post) => {
+         filteredPosts = this.props.posts.filter((post) => {
             return post.category === this.state.category.code
          });
       }
@@ -71,4 +66,10 @@ class Posts extends React.Component {
 
 }
 
-export default Posts;
+const mapStateToProps = (state) => {
+   return {
+      posts: state.posts
+   };
+};
+
+export default connect(mapStateToProps, { getPosts: getPosts })(Posts);

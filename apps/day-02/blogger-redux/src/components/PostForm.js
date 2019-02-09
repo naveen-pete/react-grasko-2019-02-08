@@ -1,15 +1,10 @@
 import React from 'react';
-import { addPost } from '../api';
+import { connect } from 'react-redux';
+
+// import { addPost } from '../api';
+import { addPost } from '../actions';
 
 class PostForm extends React.Component {
-   categories = [
-      { "name": "React", "code": "react" },
-      { "name": "Redux", "code": "redux" },
-      { "name": "Angular", "code": "angular" },
-      { "name": "ES6", "code": "es6" },
-      { "name": "Java", "code": "java" }
-   ];
-
    state = {
       title: '',
       body: '',
@@ -40,19 +35,23 @@ class PostForm extends React.Component {
    };
 
    handleNewPost = (newPost) => {
-      addPost(newPost)
-         .then(post => {
-            console.log('Add post successful.');
-            console.log('New post:', post);
-            this.props.history.push('/posts');
-         })
-         .catch(error => {
-            console.log('Add post failed!');
-            console.log('Error:', error);
-         });
+      // addPost(newPost)
+      //    .then(post => {
+      //       console.log('Add post successful.');
+      //       console.log('New post:', post);
+      //       this.props.history.push('/posts');
+      //    })
+      //    .catch(error => {
+      //       console.log('Add post failed!');
+      //       console.log('Error:', error);
+      //    });
+
+      this.props.addPost(newPost);
+      this.props.history.push('/posts');
    };
 
    render() {
+      console.log(this.props);
       return <div>
          <h3 className="mr-3">Post Form</h3>
 
@@ -100,7 +99,7 @@ class PostForm extends React.Component {
                         value={this.state.category}>
                         <option value=""></option>
                         {
-                           this.categories.map((category) => {
+                           this.props.categories.map((category) => {
                               return (
                                  <option key={category.code}
                                     value={category.code}>
@@ -121,4 +120,10 @@ class PostForm extends React.Component {
    }
 }
 
-export default PostForm;
+const mapStateToProps = (state) => {
+   return {
+      categories: state.categories
+   };
+};
+
+export default connect(mapStateToProps, { addPost: addPost })(PostForm);
